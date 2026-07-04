@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Brew Bloomed — Where Coffee Blossoms</title>
+<meta name="description" content="Brew Bloomed is a specialty coffee house where every cup is hand-crafted with botanicals, love, and a slow-roasted soul." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --cream: #faf5ee; --cream-deep: #f1e8da; --paper: #fffdf9;
+    --espresso: #2a1d14; --coffee: #4a3527; --mocha: #6b4f3b;
+    --sage: #7a9b76; --sage-deep: #5b7a58;
+    --blush: #e8b4a0; --blush-soft: #f3d4c4; --gold: #c9a961;
+    --ink: #1a120b; --line: rgba(42, 29, 20, 0.12);
+    --shadow-sm: 0 2px 12px rgba(42, 29, 20, 0.06);
+    --shadow-md: 0 12px 40px rgba(42, 29, 20, 0.10);
+    --shadow-lg: 0 24px 60px rgba(42, 29, 20, 0.16);
+    --radius-sm: 10px; --radius-md: 20px; --radius-lg: 32px;
+    --t-fast: 0.2s ease; --t-med: 0.4s cubic-bezier(.2,.7,.2,1); --t-slow: 0.8s cubic-bezier(.2,.7,.2,1);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; font-family: 'Inter', system-ui, sans-serif; color: var(--ink);
+    background: var(--cream); line-height: 1.6; font-weight: 400;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  h1, h2, h3, h4 {
+    font-family: 'Fraunces', Georgia, serif; font-weight: 500; line-height: 1.1;
+    letter-spacing: -0.02em; margin: 0; color: var(--espresso);
+  }
+  h1 { font-size: clamp(2.6rem, 6vw, 5rem); font-weight: 400; }
+  h2 { font-size: clamp(2rem, 4.5vw, 3.4rem); }
+  h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); font-weight: 600; }
+  p { margin: 0 0 1rem; }
+  .container { width: min(1200px, 92%); margin: 0 auto; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--sage-deep); margin-bottom: 1.25rem;
+  }
+  .eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--sage-deep); display: inline-block; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 0.95rem 1.8rem; border-radius: 999px; font-weight: 500; font-size: 0.95rem;
+    transition: transform var(--t-fast), box-shadow var(--t-med), background var(--t-med), color var(--t-med);
+  }
+  .btn-primary { background: var(--espresso); color: var(--cream); box-shadow: var(--shadow-sm); }
+  .btn-primary:hover { background: var(--coffee); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .btn-ghost { background: transparent; color: var(--espresso); border: 1.5px solid var(--espresso); }
+  .btn-ghost:hover { background: var(--espresso); color: var(--cream); transform: translateY(-2px); }
+  .btn .arrow { transition: transform var(--t-fast); }
+  .btn:hover .arrow { transform: translateX(4px); }
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.1rem 0;
+    transition: background var(--t-med), padding var(--t-med), box-shadow var(--t-med);
+  }
+  .nav.scrolled {
+    background: rgba(250, 245, 238, 0.85);
+    backdrop-filter: saturate(180%) blur(14px); -webkit-backdrop-filter: saturate(180%) blur(14px);
+    padding: 0.65rem 0; box-shadow: 0 1px 0 var(--line);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+  .logo { display: flex; align-items: center; gap: 0.6rem; font-family: 'Fraunces', serif; font-size: 1.35rem; font-weight: 600; color: var(--espresso); }
+  .logo-mark { width: 36px; height: 36px; }
+  .nav-links { display: flex; align-items: center; gap: 2.2rem; list-style: none; margin: 0; padding: 0; }
+  .nav-links a { font-size: 0.92rem; font-weight: 500; color: var(--coffee); position: relative; transition: color var(--t-fast); }
+  .nav-links a::after { content: ""; position: absolute; left: 0; bottom: -6px; width: 0; height: 1.5px; background: var(--espresso); transition: width var(--t-med); }
+  .nav-links a:hover { color: var(--espresso); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta { padding: 0.65rem 1.4rem; font-size: 0.88rem; }
+  .nav-toggle { display: none; width: 40px; height: 40px; border-radius: 50%; background: var(--paper); align-items: center; justify-content: center; box-shadow: var(--shadow-sm); }
+  .hero { position: relative; padding: 9rem 0 5rem; overflow: hidden; }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: -1;
+    background: radial-gradient(ellipse at 80% 20%, rgba(232, 180, 160, 0.30), transparent 50%),
+                radial-gradient(ellipse at 10% 90%, rgba(122, 155, 118, 0.25), transparent 55%), var(--cream);
+  }
+  .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center; }
+  .hero h1 { font-weight: 400; margin-bottom: 1.5rem; }
+  .hero h1 em { font-style: italic; color: var(--sage-deep); font-weight: 400; }
+  .hero p.lead { font-size: 1.1rem; color: var(--mocha); max-width: 480px; margin-bottom: 2.2rem; }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .hero-meta { display: flex; gap: 2.5rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+  .hero-meta-item .num { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 500; color: var(--espresso); display: block; line-height: 1; }
+  .hero-meta-item .label { font-size: 0.82rem; color: var(--mocha); margin-top: 0.4rem; display: block; }
+  .hero-visual { position: relative; aspect-ratio: 4 / 5; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); }
+  .hero-visual svg { width: 100%; height: 100%; display: block; }
+  .hero-badge {
+    position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem;
+    background: rgba(250, 245, 238, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    padding: 1.1rem 1.3rem; border-radius: var(--radius-md); display: flex; align-items: center; gap: 1rem; box-shadow: var(--shadow-md);
+  }
+  .hero-badge-icon { width: 44px; height: 44px; flex-shrink: 0; background: var(--sage); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; }
+  .hero-badge-text strong { display: block; font-family: 'Fraunces', serif; font-size: 1rem; color: var(--espresso); }
+  .hero-badge-text span { font-size: 0.82rem; color: var(--mocha); }
+  .marquee { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 1.4rem 0; overflow: hidden; background: var(--paper); }
+  .marquee-track { display: flex; gap: 3rem; animation: scroll 35s linear infinite; white-space: nowrap; }
+  .marquee-item { display: inline-flex; align-items: center; gap: 1rem; font-family: 'Fraunces', serif; font-size: 1.4rem; color: var(--mocha); font-style: italic; }
+  .marquee-item .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sage); }
+  @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  section { padding: 6rem 0; position: relative; }
+  .section-head { max-width: 640px; margin: 0 auto 4rem; text-align: center; }
+  .section-head .eyebrow { justify-content: center; }
+  .section-head .eyebrow::before { display: none; }
+  .section-head .eyebrow::after { content: ""; width: 28px; height: 1px; background: var(--sage-deep); display: inline-block; }
+  .section-head p { color: var(--mocha); font-size: 1.05rem; }
+  .about { background: var(--paper); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 5rem; align-items: center; }
+  .about-images { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .about-img { border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-md); aspect-ratio: 3 / 4; }
+  .about-img:nth-child(2) { margin-top: 3rem; }
+  .about-img svg { width: 100%; height: 100%; }
+  .about h2 { margin-bottom: 1.5rem; }
+  .about p { color: var(--mocha); font-size: 1.05rem; }
+  .about-signature { display: flex; align-items: center; gap: 1rem; margin-top: 2rem; }
+  .signature { font-family: 'Fraunces', serif; font-style: italic; font-size: 1.6rem; color: var(--espresso); }
+  .signature-info span { display: block; font-size: 0.85rem; color: var(--mocha); }
+  .signature-info strong { font-family: 'Fraunces', serif; font-weight: 500; color: var(--espresso); }
+  .menu-tabs { display: flex; justify-content: center; gap: 0.6rem; margin-bottom: 3rem; flex-wrap: wrap; }
+  .menu-tab { padding: 0.6rem 1.4rem; border-radius: 999px; background: var(--paper); color: var(--mocha); font-weight: 500; font-size: 0.9rem; border: 1px solid var(--line); transition: all var(--t-fast); }
+  .menu-tab:hover { color: var(--espresso); }
+  .menu-tab.active { background: var(--espresso); color: var(--cream); border-color: var(--espresso); }
+  .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+  .menu-card { background: var(--paper); border-radius: var(--radius-md); padding: 1.5rem; display: flex; gap: 1.2rem; align-items: center; transition: transform var(--t-med), box-shadow var(--t-med); border: 1px solid transparent; }
+  .menu-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--line); }
+  .menu-thumb { width: 70px; height: 70px; flex-shrink: 0; border-radius: 50%; background: var(--cream-deep); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .menu-info { flex: 1; min-width: 0; }
+  .menu-info h3 { font-size: 1.1rem; margin-bottom: 0.25rem; }
+  .menu-info p { font-size: 0.85rem; color: var(--mocha); margin: 0; line-height: 1.4; }
+  .menu-price { font-family: 'Fraunces', serif; font-weight: 500; font-size: 1.15rem; color: var(--espresso); white-space: nowrap; }
+  .features { background: var(--cream-deep); }
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+  .feature { padding: 2.2rem 1.8rem; background: var(--paper); border-radius: var(--radius-md); transition: transform var(--t-med); }
+  .feature:hover { transform: translateY(-6px); }
+  .feature-icon { width: 56px; height: 56px; border-radius: 16px; background: var(--cream-deep); display: flex; align-items: center; justify-content: center; margin-bottom: 1.4rem; color: var(--sage-deep); }
+  .feature h3 { margin-bottom: 0.6rem; }
+  .feature p { color: var(--mocha); font-size: 0.95rem; margin: 0; }
+  .gallery { padding-bottom: 4rem; }
+  .gallery-grid { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: 140px; gap: 1rem; }
+  .gallery-item { border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); position: relative; transition: transform var(--t-med), box-shadow var(--t-med); }
+  .gallery-item:hover { transform: scale(1.02); box-shadow: var(--shadow-md); z-index: 2; }
+  .gallery-item svg { width: 100%; height: 100%; }
+  .gallery-item:nth-child(1) { grid-column: span 6; grid-row: span 3; }
+  .gallery-item:nth-child(2) { grid-column: span 3; grid-row: span 2; }
+  .gallery-item:nth-child(3) { grid-column: span 3; grid-row: span 2; }
+  .gallery-item:nth-child(4) { grid-column: span 4; grid-row: span 2; }
+  .gallery-item:nth-child(5) { grid-column: span 4; grid-row: span 2; }
+  .gallery-item:nth-child(6) { grid-column: span 4; grid-row: span 2; }
+  .testimonials { background: var(--espresso); color: var(--cream); position: relative; overflow: hidden; }
+  .testimonials::before { content: ""; position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(201, 169, 97, 0.15), transparent 70%); border-radius: 50%; }
+  .testimonials h2 { color: var(--cream); }
+  .testimonials .eyebrow { color: var(--gold); }
+  .testimonials .eyebrow::before { background: var(--gold); }
+  .testimonials .eyebrow::after { background: var(--gold); }
+  .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+  .testi { background: rgba(250, 245, 238, 0.05); border: 1px solid rgba(250, 245, 238, 0.1); border-radius: var(--radius-md); padding: 2rem; backdrop-filter: blur(6px); }
+  .testi-quote { font-family: 'Fraunces', serif; font-size: 3rem; line-height: 1; color: var(--gold); margin-bottom: 0.5rem; }
+  .testi p { color: var(--cream-deep); font-size: 1rem; margin-bottom: 1.5rem; }
+  .testi-author { display: flex; align-items: center; gap: 0.9rem; }
+  .avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--sage); display: flex; align-items: center; justify-content: center; color: white; font-family: 'Fraunces', serif; font-weight: 500; font-size: 1rem; }
+  .testi-author strong { display: block; color: var(--cream); font-size: 0.95rem; }
+  .testi-author span { font-size: 0.82rem; color: var(--blush-soft); opacity: 0.7; }
+  .visit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: stretch; }
+  .visit-info h2 { margin-bottom: 1.5rem; }
+  .visit-info > p { color: var(--mocha); font-size: 1.05rem; margin-bottom: 2.5rem; }
+  .info-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1.5rem; }
+  .info-list li { display: flex; gap: 1rem; align-items: flex-start; }
+  .info-icon { width: 44px; height: 44px; border-radius: 12px; background: var(--cream-deep); color: var(--sage-deep); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .info-list strong { display: block; font-family: 'Fraunces', serif; font-weight: 500; color: var(--espresso); margin-bottom: 0.2rem; }
+  .info-list span { color: var(--mocha); font-size: 0.92rem; line-height: 1.5; }
+  .visit-card { background: var(--paper); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-md); }
+  .visit-card h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .visit-card > p { color: var(--mocha); font-size: 0.95rem; margin-bottom: 2rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+  .form-group label { font-size: 0.82rem; font-weight: 500; color: var(--mocha); letter-spacing: 0.02em; }
+  .form-group input, .form-group textarea, .form-group select { border: 1.5px solid var(--line); border-radius: var(--radius-sm); padding: 0.85rem 1rem; font: inherit; background: var(--cream); color: var(--ink); transition: border-color var(--t-fast), background var(--t-fast); }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--sage); background: var(--paper); }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .form-full { grid-column: 1 / -1; }
+  .newsletter { background: var(--cream-deep); padding: 4rem 0; }
+  .newsletter-inner { background: var(--espresso); color: var(--cream); border-radius: var(--radius-lg); padding: 3.5rem 3rem; display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; align-items: center; position: relative; overflow: hidden; }
+  .newsletter-inner::before { content: ""; position: absolute; bottom: -80px; right: -80px; width: 280px; height: 280px; background: radial-gradient(circle, rgba(232, 180, 160, 0.2), transparent 70%); border-radius: 50%; }
+  .newsletter-inner h2 { color: var(--cream); font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 0.5rem; }
+  .newsletter-inner p { color: var(--blush-soft); margin: 0; opacity: 0.85; }
+  .newsletter-form { display: flex; gap: 0.6rem; position: relative; z-index: 1; }
+  .newsletter-form input { flex: 1; padding: 1rem 1.2rem; border-radius: 999px; border: 1.5px solid rgba(250, 245, 238, 0.2); background: rgba(250, 245, 238, 0.08); color: var(--cream); font: inherit; transition: border-color var(--t-fast), background var(--t-fast); }
+  .newsletter-form input::placeholder { color: rgba(250, 245, 238, 0.55); }
+  .newsletter-form input:focus { outline: none; border-color: var(--gold); background: rgba(250, 245, 238, 0.12); }
+  .newsletter-form .btn-primary { background: var(--gold); color: var(--espresso); }
+  .newsletter-form .btn-primary:hover { background: #d8b96f; }
+  footer { background: var(--ink); color: var(--cream-deep); padding: 5rem 0 2rem; }
+  .footer-grid { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 3rem; margin-bottom: 4rem; }
+  .footer-brand p { color: var(--cream-deep); opacity: 0.7; font-size: 0.95rem; margin: 1.2rem 0 1.5rem; max-width: 320px; }
+  .socials { display: flex; gap: 0.6rem; }
+  .socials a { width: 38px; height: 38px; border-radius: 50%; background: rgba(250, 245, 238, 0.06); display: flex; align-items: center; justify-content: center; color: var(--cream-deep); transition: background var(--t-fast), color var(--t-fast); }
+  .socials a:hover { background: var(--gold); color: var(--espresso); }
+  .footer-col h4 { font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 600; color: var(--gold); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 1.2rem; }
+  .footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-col a { color: var(--cream-deep); opacity: 0.75; font-size: 0.95rem; transition: opacity var(--t-fast), color var(--t-fast); }
+  .footer-col a:hover { opacity: 1; color: var(--gold); }
+  .footer-bottom { border-top: 1px solid rgba(250, 245, 238, 0.1); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; color: var(--cream-deep); opacity: 0.6; }
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity var(--t-slow), transform var(--t-slow); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  @media (max-width: 960px) {
+    .hero-grid, .about-grid, .visit-grid, .newsletter-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .hero { padding: 7rem 0 4rem; }
+    section { padding: 4.5rem 0; }
+    .section-head { margin-bottom: 3rem; }
+    .about-images { max-width: 480px; margin: 0 auto; }
+    .gallery-item:nth-child(1) { grid-column: span 6; grid-row: span 3; }
+    .gallery-item:nth-child(2), .gallery-item:nth-child(3) { grid-column: span 6; grid-row: span 2; }
+    .gallery-item:nth-child(4), .gallery-item:nth-child(5), .gallery-item:nth-child(6) { grid-column: span 6; grid-row: span 2; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 720px) {
+    .nav-links { display: none; }
+    .nav-toggle { display: flex; }
+    .nav-links.open { display: flex; position: absolute; top: 100%; left: 4%; right: 4%; background: var(--paper); flex-direction: column; gap: 0.5rem; padding: 1.2rem; border-radius: var(--radius-md); box-shadow: var(--shadow-md); margin-top: 0.6rem; }
+    .nav-links.open a { padding: 0.6rem 0.8rem; }
+    .hero-meta { flex-wrap: wrap; gap: 1.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .newsletter-inner { padding: 2.2rem 1.6rem; }
+    .newsletter-form { flex-direction: column; }
+    .newsletter-form .btn { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#" class="logo">
+      <svg class="logo-mark" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="19" stroke="#2a1d14" stroke-width="1.5" fill="#faf5ee"/>
+        <path d="M14 22c0-4 2.5-8 6-8s6 4 6 8" stroke="#2a1d14" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M20 14c0-2 1-4 3-4" stroke="#7a9b76" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <path d="M20 14c0-2-1-4-3-4" stroke="#7a9b76" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <circle cx="20" cy="24" r="2" fill="#c9a961"/>
+      </svg>
+      Brew Bloomed
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">Our Story</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#why">Why Us</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#visit">Visit</a></li>
+    </ul>
+    <a href="#visit" class="btn btn-primary nav-cta">
+      Reserve a table
+      <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2a1d14" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</nav>
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="container hero-grid">
+    <div class="reveal">
+      <span class="eyebrow">Est. 2019 · Slow-Roasted Soul</span>
+      <h1>Where every cup <em>blooms</em> into something beautiful.</h1>
+      <p class="lead">A specialty coffee house where botanicals meet the bean. Hand-crafted drinks, seasonal pastries, and a slow corner of the city to call your own.</p>
+      <div class="hero-actions">
+        <a href="#menu" class="btn btn-primary">
+          Explore the menu
+          <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#about" class="btn btn-ghost">Our story</a>
+      </div>
+      <div class="hero-meta">
+        <div class="hero-meta-item"><span class="num">14k+</span><span class="label">Cups served monthly</span></div>
+        <div class="hero-meta-item"><span class="num">9</span><span class="label">Single-origin beans</span></div>
+        <div class="hero-meta-item"><span class="num">4.9</span><span class="label">Average rating</span></div>
+      </div>
+    </div>
+    <div class="hero-visual reveal">
+      <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#e8b4a0"/><stop offset="100%" stop-color="#7a9b76"/>
+          </linearGradient>
+          <linearGradient id="cupGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#fffdf9"/><stop offset="100%" stop-color="#f1e8da"/>
+          </linearGradient>
+        </defs>
+        <rect width="400" height="500" fill="url(#bgGrad)"/>
+        <g opacity="0.55">
+          <path d="M50 80 Q90 30 150 70 Q120 110 50 80Z" fill="#5b7a58"/>
+          <path d="M320 60 Q370 30 380 90 Q340 100 320 60Z" fill="#5b7a58"/>
+          <path d="M340 420 Q380 400 390 460 Q360 470 340 420Z" fill="#5b7a58"/>
+          <path d="M40 380 Q70 360 100 410 Q60 430 40 380Z" fill="#5b7a58"/>
+        </g>
+        <g stroke="#fffdf9" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.7">
+          <path d="M170 130 Q180 110 170 90 Q160 70 175 50"/>
+          <path d="M200 140 Q210 115 200 95 Q190 75 205 55"/>
+          <path d="M230 130 Q240 110 230 90 Q220 70 235 50"/>
+        </g>
+        <ellipse cx="200" cy="210" rx="110" ry="20" fill="#2a1d14"/>
+        <path d="M95 210 Q95 340 140 360 L260 360 Q305 340 305 210 Z" fill="url(#cupGrad)" stroke="#2a1d14" stroke-width="3"/>
+        <ellipse cx="200" cy="210" rx="105" ry="15" fill="#4a3527"/>
+        <ellipse cx="200" cy="370" rx="160" ry="22" fill="#2a1d14"/>
+        <ellipse cx="200" cy="368" rx="155" ry="18" fill="#f1e8da"/>
+        <g transform="translate(195 200)">
+          <path d="M0 0 Q-15 -25 0 -45 Q15 -25 0 0Z" fill="#7a9b76"/>
+          <path d="M0 0 L0 -42" stroke="#5b7a58" stroke-width="1.5"/>
+        </g>
+      </svg>
+      <div class="hero-badge">
+        <div class="hero-badge-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M5 5l2 2M17 17l2 2M2 12h3M19 12h3M5 19l2-2M17 7l2-2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="hero-badge-text">
+          <strong>Today's Roast</strong>
+          <span>Ethiopia Yirgacheffe · Floral &amp; bright</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item"><span class="dot"></span>Single-origin beans</span>
+    <span class="marquee-item"><span class="dot"></span>Botanical syrups</span>
+    <span class="marquee-item"><span class="dot"></span>House-baked pastries</span>
+    <span class="marquee-item"><span class="dot"></span>Latte art classes</span>
+    <span class="marquee-item"><span class="dot"></span>Slow mornings</span>
+    <span class="marquee-item"><span class="dot"></span>Locally roasted</span>
+    <span class="marquee-item"><span class="dot"></span>Single-origin beans</span>
+    <span class="marquee-item"><span class="dot"></span>Botanical syrups</span>
+    <span class="marquee-item"><span class="dot"></span>House-baked pastries</span>
+    <span class="marquee-item"><span class="dot"></span>Latte art classes</span>
+    <span class="marquee-item"><span class="dot"></span>Slow mornings</span>
+    <span class="marquee-item"><span class="dot"></span>Locally roasted</span>
+  </div>
+</div>
+<section class="about" id="about">
+  <div class="container about-grid">
+    <div class="about-images reveal">
+      <div class="about-img">
+        <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice">
+          <defs><linearGradient id="about1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7a9b76"/><stop offset="100%" stop-color="#5b7a58"/></linearGradient></defs>
+          <rect width="300" height="400" fill="url(#about1)"/>
+          <circle cx="150" cy="170" r="80" fill="#faf5ee" opacity="0.95"/>
+          <circle cx="150" cy="170" r="60" fill="#4a3527"/>
+          <ellipse cx="150" cy="170" rx="50" ry="12" fill="#c9a961" opacity="0.7"/>
+        </svg>
+      </div>
+      <div class="about-img">
+        <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice">
+          <defs><linearGradient id="about2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e8b4a0"/><stop offset="100%" stop-color="#c9a961"/></linearGradient></defs>
+          <rect width="300" height="400" fill="url(#about2)"/>
+          <g transform="translate(150 200)">
+            <path d="M-90 0 Q-90 -110 0 -120 Q90 -110 90 0 Q90 50 0 60 Q-90 50 -90 0Z" fill="#fffdf9" stroke="#2a1d14" stroke-width="2.5"/>
+            <ellipse cx="0" cy="0" rx="80" ry="20" fill="#3a2418"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">Our Story</span>
+      <h2>A small corner of the city, brewed slowly.</h2>
+      <p>Brew Bloomed started as a love letter to slow mornings. We were two friends tired of rushed coffee and louder cafés — so we built the place we wanted to walk into: warm light, soft music, beans roasted a few streets away, and syrups we make ourselves from the botanicals in our garden.</p>
+      <p>Six years later, we're still doing the same thing — one cup, one bloom, one good morning at a time.</p>
+      <div class="about-signature">
+        <span class="signature">Mira &amp; Theo</span>
+        <div class="signature-info">
+          <strong>Co-founders</strong>
+          <span>Roasters, gardeners, regulars.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="menu">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">The Menu</span>
+      <h2>Drinks &amp; bites, made fresh daily.</h2>
+      <p>From our hand-poured slow bar to seasonal pastries out of the oven at 7am sharp — here's what we're pouring today.</p>
+    </div>
+    <div class="menu-tabs reveal">
+      <button class="menu-tab active" data-tab="coffee">Coffee</button>
+      <button class="menu-tab" data-tab="special">Specials</button>
+      <button class="menu-tab" data-tab="tea">Tea &amp; Botanical</button>
+      <button class="menu-tab" data-tab="bites">Bites</button>
+    </div>
+    <div class="menu-grid" id="menuGrid">
+      <div class="menu-card" data-cat="coffee">
+        <div class="menu-thumb"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#4a3527" stroke-width="1.5"><path d="M17 8h1a4 4 0 010 8h-1M3 8h14v9a4 4 0 01-4 4H7a4 4 0 01-4-4V8z" stroke-linecap="round"/></svg></div>
+        <div class="menu-info"><h3>Slow Pour</h3><p>Single-origin, brewed 4 minutes over ice.</p></div>
+        <span class="menu-price">$4.50</span>
+      </div>
+      <div class="menu-card" data-cat="coffee">
+        <div class="menu-thumb"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#4a3527" stroke-width="1.5"><path d="M8 2l1.5 2.5M16 2l-1.5 2.5M12 6v3M5 9h14l-1.5 9a2 2 0 01-2 1.7H8.5a2 2 0 01-2-1.7L5 9z" stroke-linecap="round"/></svg></div>
+        <div class="menu-info"><h3>Flat White</h3><p>Velvet microfoam, double ristretto.</p></div>
+        <span class="menu-price">$4.20</span>
+      </div>
+      <div class="menu-card" data-cat="coffee">
+        <div class="menu-thumb"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#4a3527" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2" stroke-linecap="round"/></svg></div>
+        <div class="menu-info"><h3>Espresso</h3><p>The classic — pulled 22 seconds, no fuss.</p></div>
+        <span class="menu-price">$3.00</span>
+      </div>
+      <div class="menu-card" data-cat="special">
+        <div class="menu-thumb"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#5b7a58" stroke-width="1.5"><path d="M12 2C8 6 6 10 6 14a6 6 0 0012 0c0-4-2-8-6-12z" stroke-linejoin="round"/><path d="M12 14v8M9 19h6" stroke-linecap="round"/></svg></div>
+        <div class="menu-info"><h3>Bloom Latte</h3><p>Lavender &amp; oat, our signature pour.</p></div>
+        <span class="menu-price">$5.40</span>
+      </div>
+      <div class="menu-card" data-cat="special">
+        <div class="menu-thumb"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#5b7a58" stroke-width="1.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" stroke-linecap="round"/></svg></div>
+        <div class="menu-info"><h3>Honey Cardamom</h3><p>Espresso, raw honey, warm cardamom.</p></div>
+        <span class="menu-price">$5.20</span>
+      </div>
+      <div class="menu-card" data-cat="special">
+        <div class="menu-thumb"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#5b7a58" stroke-width="1.5"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-6z" stroke-linejoin="round"/></svg></div>
+        <div class="menu-info"><h3>Rose Mocha</h3><p>Cocoa, espresso, rose water, sea salt.</p></div>
+        <span class="menu-price">$5.60</span>
+      </div>
+      <div class="menu-card" data-cat="tea">
+        <div class="menu-thumb"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#7a9b76" stroke-width="1.5"><path d="M3 8h13v6a4 4 0 01-4 4H7a4 4 0 01-4-4V8zM16 10h2a3 3 0 010 6h-2" stroke-linecap="round"/></svg></div>
+        <div class="menu-info"><h3>Chamomile Bloom</h3><p>House-steeped chamomile &amp; honey.</p></div>
+        <span class="menu-price">$3.80</span>
+      </div>
+      <div class="menu-card" data-cat="tea">
+        <div class="menu-thumb"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#7a9b76" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 3a14 14 0 010 18M12 3a14 14 0 000 18" stroke-linecap="round"/></svg></div>
+        <div class="menu-info"><h3>Matcha Garden</h3><p>Ceremonial matcha, oat milk, light.</p></div>
+        <span class="menu-price">$5.20</span>
+      </div>
+      <div class="menu-card" data-cat="bites">
+        <div class="menu-thumb"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#c9a961" stroke-width="1.5"><path d="M4 14c0-4 3-7 8-7s8 3 8 7H4z" stroke-linecap="round"/></svg></div>
+        <div class="menu-info"><h3>Almond Croissant</h3><p>Flaky, frangipane-filled, baked at 7am.</p></div>
+        <span class="menu-price">$4.20</span>
+      </div>
+      <div class="menu-card" data-cat="bites">
+        <div class="menu-thumb"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#c9a961" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg></div>
+        <div class="menu-info"><h3>Pistachio Cookie</h3><p>Brown butter, sea salt, soft center.</p></div>
+        <span class="menu-price">$3.40</span>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="features" id="why">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Why Brew Bloomed</span>
+      <h2>The little things we obsess over.</h2>
+      <p>Good coffee is mostly the boring stuff, done carefully — for years. Here's what that looks like in our shop.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature reveal">
+        <div class="feature-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2C8 6 6 10 6 14a6 6 0 0012 0c0-4-2-8-6-12z" stroke-linejoin="round"/></svg></div>
+        <h3>Roasted in-house</h3>
+        <p>Every bean we serve is roasted within 7 days, in our small drum two streets over.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 21l9-9 9 9M5 12V5a2 2 0 012-2h10a2 2 0 012 2v7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Garden botanicals</h3>
+        <p>Lavender, rose, mint &amp; cardamom — grown in our backyard, never from a bottle.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3" stroke-linecap="round"/></svg></div>
+        <h3>Slow by design</h3>
+        <p>We don't do wifi for everyone. We do comfy chairs, soft music, and time to think.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke-linejoin="round"/></svg></div>
+        <h3>Made with care</h3>
+        <p>Fair-trade beans, living wages for our team, and pastries from the bakery next door.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="gallery" id="gallery">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">A peek inside</span>
+      <h2>Mornings, made of small moments.</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal">
+        <svg viewBox="0 0 600 480" preserveAspectRatio="xMidYMid slice">
+          <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4a3527"/><stop offset="100%" stop-color="#2a1d14"/></linearGradient></defs>
+          <rect width="600" height="480" fill="url(#g1)"/>
+          <circle cx="300" cy="220" r="120" fill="#faf5ee"/>
+          <circle cx="300" cy="220" r="90" fill="#6b4f3b"/>
+          <ellipse cx="300" cy="220" rx="75" ry="18" fill="#c9a961"/>
+          <path d="M180 380 Q300 340 420 380 L420 420 L180 420Z" fill="#3a2418"/>
+        </svg>
+      </div>
+      <div class="gallery-item reveal">
+        <svg viewBox="0 0 300 300" preserveAspectRatio="xMidYMid slice">
+          <rect width="300" height="300" fill="#e8b4a0"/>
+          <g transform="translate(150 150)">
+            <path d="M0 -80 Q40 -40 0 0 Q-40 -40 0 -80Z" fill="#5b7a58"/>
+            <path d="M0 -80 Q-40 -40 0 0 Q40 -40 0 -80Z" fill="#7a9b76"/>
+            <circle r="10" fill="#c9a961"/>
+          </g>
+        </svg>
+      </div>
+      <div class="gallery-item reveal">
+        <svg viewBox="0 0 300 300" preserveAspectRatio="xMidYMid slice">
+          <rect width="300" height="300" fill="#7a9b76"/>
+          <g transform="translate(150 160)">
+            <ellipse cx="0" cy="0" rx="110" ry="20" fill="#2a1d14"/>
+            <path d="M-100 -5 Q-100 80 -50 95 L50 95 Q100 80 100 -5 Z" fill="#fffdf9"/>
+            <ellipse cx="0" cy="-5" rx="95" ry="15" fill="#4a3527"/>
+            <g stroke="#fffdf9" stroke-width="3" fill="none" opacity="0.7">
+              <path d="M-30 -25 Q-20 -55 -30 -85"/>
+              <path d="M0 -25 Q10 -55 0 -85"/>
+              <path d="M30 -25 Q40 -55 30 -85"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div class="gallery-item reveal">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="300" fill="#f1e8da"/>
+          <g transform="translate(80 150)">
+            <ellipse cx="0" cy="0" rx="60" ry="12" fill="#c9a961"/>
+            <path d="M-50 -5 Q-55 30 -30 40 L30 40 Q55 30 50 -5 Z" fill="#fffdf9" stroke="#2a1d14" stroke-width="1.5"/>
+            <ellipse cx="0" cy="-5" rx="45" ry="9" fill="#6b4f3b"/>
+          </g>
+          <g transform="translate(220 170)">
+            <ellipse cx="0" cy="0" rx="60" ry="12" fill="#c9a961"/>
+            <path d="M-50 -5 Q-55 30 -30 40 L30 40 Q55 30 50 -5 Z" fill="#fffdf9" stroke="#2a1d14" stroke-width="1.5"/>
+            <ellipse cx="0" cy="-5" rx="45" ry="9" fill="#6b4f3b"/>
+          </g>
+          <g transform="translate(340 150)">
+            <ellipse cx="0" cy="0" rx="40" ry="9" fill="#7a9b76"/>
+            <path d="M-35 -5 Q-38 20 -20 28 L20 28 Q38 20 35 -5 Z" fill="#fffdf9" stroke="#2a1d14" stroke-width="1.5"/>
+          </g>
+        </svg>
+      </div>
+      <div class="gallery-item reveal">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="300" fill="#2a1d14"/>
+          <g opacity="0.9">
+            <circle cx="100" cy="120" r="40" fill="#c9a961" opacity="0.3"/>
+            <circle cx="200" cy="180" r="60" fill="#e8b4a0" opacity="0.2"/>
+            <circle cx="320" cy="100" r="30" fill="#7a9b76" opacity="0.4"/>
+          </g>
+          <text x="200" y="160" text-anchor="middle" font-family="Fraunces, serif" font-size="42" fill="#faf5ee" font-style="italic">Brewed Slowly</text>
+        </svg>
+      </div>
+      <div class="gallery-item reveal">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="300" fill="#e8b4a0"/>
+          <g transform="translate(200 150)">
+            <ellipse cx="0" cy="60" rx="160" ry="20" fill="#2a1d14" opacity="0.25"/>
+            <path d="M-120 -10 Q-120 -120 0 -130 Q120 -120 120 -10 Q120 50 0 60 Q-120 50 -120 -10Z" fill="#fffdf9" stroke="#2a1d14" stroke-width="2"/>
+            <ellipse cx="0" cy="-10" rx="105" ry="22" fill="#3a2418"/>
+            <g transform="translate(0 -20)"><path d="M0 0 Q-15 -25 0 -45 Q15 -25 0 0Z" fill="#7a9b76"/></g>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="testimonials">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Regulars say it best</span>
+      <h2>Kind words from our morning crew.</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi reveal">
+        <div class="testi-quote">"</div>
+        <p>I used to grab coffee on the way to work. Now I show up 20 minutes early just to sit with it. Brew Bloomed changed my whole morning.</p>
+        <div class="testi-author">
+          <div class="avatar">A</div>
+          <div><strong>Aisha R.</strong><span>Comes in daily, lavender latte in hand</span></div>
+        </div>
+      </div>
+      <div class="testi reveal">
+        <div class="testi-quote">"</div>
+        <p>It's the only café in town where the baristas actually remember my name and what I drink. Feels like a small village inside the city.</p>
+        <div class="testi-author">
+          <div class="avatar">J</div>
+          <div><strong>Jordan T.</strong><span>Writes his novel here on Saturdays</span></div>
+        </div>
+      </div>
+      <div class="testi reveal">
+        <div class="testi-quote">"</div>
+        <p>The rose mocha is unreal. The almond croissant is unreal. I come for the coffee and stay for the playlist and the plants.</p>
+        <div class="testi-author">
+          <div class="avatar">M</div>
+          <div><strong>Mei L.</strong><span>Has tried everything on the menu twice</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="visit">
+  <div class="container visit-grid">
+    <div class="visit-info reveal">
+      <span class="eyebrow">Come say hi</span>
+      <h2>Visit us in the city.</h2>
+      <p>We're a 4-minute walk from Linden Square, tucked between the old bookshop and the florist. Look for the sage-green awning and the smell of coffee.</p>
+      <ul class="info-list">
+        <li>
+          <div class="info-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke-linejoin="round"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><strong>Find us</strong><span>27 Bloom Street, Linden District<br/>Open in Google Maps →</span></div>
+        </li>
+        <li>
+          <div class="info-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3" stroke-linecap="round"/></svg></div>
+          <div><strong>Open hours</strong><span>Mon – Fri · 7am – 7pm<br/>Sat – Sun · 8am – 8pm</span></div>
+        </li>
+        <li>
+          <div class="info-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" stroke-linejoin="round"/></svg></div>
+          <div><strong>Say hello</strong><span>+1 (555) 012-7392<br/>hello@brewbloomed.co</span></div>
+        </li>
+      </ul>
+    </div>
+    <div class="visit-card reveal">
+      <h3>Reserve a table</h3>
+      <p>For groups of 4+ on weekends, drop us a line — we'll save the sunny corner.</p>
+      <form onsubmit="event.preventDefault(); alert('Thanks! We will be in touch shortly.')">
+        <div class="form-row">
+          <div class="form-group"><label>First name</label><input type="text" placeholder="Mira" required /></div>
+          <div class="form-group"><label>Last name</label><input type="text" placeholder="Bloom" required /></div>
+        </div>
+        <div class="form-group"><label>Email</label><input type="email" placeholder="you@goodmorning.co" required /></div>
+        <div class="form-row">
+          <div class="form-group"><label>Date</label><input type="date" required /></div>
+          <div class="form-group"><label>Party size</label><select><option>2 people</option><option>3 people</option><option>4 people</option><option>5+ people</option></select></div>
+        </div>
+        <div class="form-group"><label>Anything we should know?</label><textarea placeholder="Birthday, dietary needs, your usual order..."></textarea></div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+          Request a table
+          <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+<section class="newsletter">
+  <div class="container">
+    <div class="newsletter-inner reveal">
+      <div>
+        <h2>Letters from the slow bar.</h2>
+        <p>One short email a month — new roasts, seasonal syrups, and the occasional poem. No spam, ever.</p>
+      </div>
+      <form class="newsletter-form" onsubmit="event.preventDefault(); this.reset(); alert('Welcome to the slow bar ✦')">
+        <input type="email" placeholder="your@email.co" required />
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+      </form>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo" style="color: var(--cream);">
+          <svg class="logo-mark" viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="19" stroke="#faf5ee" stroke-width="1.5" fill="none"/>
+            <path d="M14 22c0-4 2.5-8 6-8s6 4 6 8" stroke="#faf5ee" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M20 14c0-2 1-4 3-4" stroke="#7a9b76" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M20 14c0-2-1-4-3-4" stroke="#7a9b76" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <circle cx="20" cy="24" r="2" fill="#c9a961"/>
+          </svg>
+          Brew Bloomed
+        </a>
+        <p>A small coffee house for slow mornings, hand-poured cups, and people who like their coffee the way they like their weekends.</p>
+        <div class="socials">
+          <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="TikTok"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.5 7.5a5.5 5.5 0 01-3.5-1.3v8.6a5.5 5.5 0 11-5.5-5.5v3a2.5 2.5 0 102.5 2.5V2h3a4.5 4.5 0 003.5 4.5v1z"/></svg></a>
+          <a href="#" aria-label="Pinterest"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-3.6 19.3c-.1-.8-.2-2 0-2.9.2-.8 1.3-5.4 1.3-5.4s-.3-.7-.3-1.6c0-1.5.9-2.6 2-2.6.9 0 1.4.7 1.4 1.5 0 .9-.6 2.3-.9 3.6-.3 1.1.5 2 1.6 2 1.9 0 3.4-2 3.4-5 0-2.6-1.9-4.4-4.5-4.4-3.1 0-4.9 2.3-4.9 4.7 0 .9.4 1.9.8 2.5.1.1.1.2.1.3l-.3 1.2c0 .2-.2.2-.4.1-1.3-.6-2.1-2.5-2.1-4 0-3.3 2.4-6.3 6.9-6.3 3.6 0 6.4 2.6 6.4 6 0 3.6-2.3 6.5-5.4 6.5-1.1 0-2-.6-2.4-1.2 0 0-.6 2.1-.7 2.6-.3 1-.9 2.3-1.4 3A10 10 0 1012 2z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Visit</h4><ul><li><a href="#">Our cafés</a></li><li><a href="#">Hours</a></li><li><a href="#">Reservations</a></li><li><a href="#">Private events</a></li></ul></div>
+      <div class="footer-col"><h4>Menu</h4><ul><li><a href="#">Coffee</a></li><li><a href="#">Specials</a></li><li><a href="#">Tea &amp; botanical</a></li><li><a href="#">Bites</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="#">Our story</a></li><li><a href="#">Sourcing</a></li><li><a href="#">Sustainability</a></li><li><a href="#">Careers</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Brew Bloomed Coffee Co. · Brewed slowly with care.</span>
+      <span>Privacy · Terms · Accessibility</span>
+    </div>
+  </div>
+</footer>
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 24));
+  const navToggle = document.getElementById('navToggle');
+  const navLinks  = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+  const tabs = document.querySelectorAll('.menu-tab');
+  const cards = document.querySelectorAll('.menu-card');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const cat = tab.dataset.tab;
+      cards.forEach(card => { card.style.display = card.dataset.cat === cat ? 'flex' : 'none'; });
+    });
+  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
